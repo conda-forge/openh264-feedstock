@@ -18,12 +18,14 @@ build:
 
 requirements:
   build:
-    - toolchain
     - pkg-config
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+  host:
     - nasm
-    - zlib 1.2.11
+    - zlib
   run:
-    - zlib >=1.2.11,<1.3.0a0
+    - zlib
 
 test:
   commands:
