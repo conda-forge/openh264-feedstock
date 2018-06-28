@@ -1,7 +1,7 @@
 {% set name = "openh264" %}
-{% set version = "1.7.0" %}
+{% set version = "1.8.0" %}
 {% set hash_type = "sha256" %}
-{% set hash_value = "9c07c38d7de00046c9c52b12c76a2af7648b70d05bd5460c8b67f6895738653f" %}
+{% set hash_value = "08670017fd0bb36594f14197f60bebea27b895511251c7c64df6cd33fc667d34" %}
 
 package:
   name: {{ name }}
