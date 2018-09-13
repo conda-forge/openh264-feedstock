@@ -13,7 +13,7 @@ source:
   '{{ hash_type }}': '{{ hash_value }}'
 
 build:
-  number: 0
+  number: 1000
   skip: true  # [win]
   run_exports:
     # new so names and compatibility changes on minor version
