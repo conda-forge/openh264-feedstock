@@ -1,7 +1,7 @@
 {% set name = "openh264" %}
-{% set version = "1.8.0" %}
+{% set version = "2.0.0" %}
 {% set hash_type = "sha256" %}
-{% set hash_value = "08670017fd0bb36594f14197f60bebea27b895511251c7c64df6cd33fc667d34" %}
+{% set hash_value = "73c35f80cc487560d11ecabb6d31ad828bd2f59d412f9cd726cc26bfaf4561fd" %}
 
 package:
   name: {{ name }}
@@ -13,7 +13,7 @@ source:
   '{{ hash_type }}': '{{ hash_value }}'
 
 build:
-  number: 1000
+  number: 0
   skip: true  # [win]
   run_exports:
     # new so names and compatibility changes on minor version
