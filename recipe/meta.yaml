@@ -34,8 +34,6 @@ test:
     - test -f $PREFIX/bin/h264dec                   # [not win]
     - test -f $PREFIX/lib/libopenh264.dylib         # [osx]
     - test -f $PREFIX/lib/libopenh264.so            # [linux]
-    - conda inspect linkages -p $PREFIX {{ name }}  # [not win]
-    - conda inspect objects -p $PREFIX {{ name }}   # [osx]
 
 about:
   home: http://www.openh264.org/
