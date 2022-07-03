@@ -11,8 +11,7 @@ source:
   sha256: e4e5c8ba48e64ba6ce61e8b6e2b76b2d870c74c270147649082feabb40f25905
 
 build:
-  number: 0
-  skip: true  # [win]
+  number: 1
   run_exports:
     # new so names and compatibility changes on minor version
     # https://abi-laboratory.pro/?view=timeline&l=openh264
@@ -24,16 +23,21 @@ requirements:
     - {{ compiler('c') }}
     - pkg-config
     - nasm
-    - make  # [unix]
+    - make    # [unix]
+    - meson   # [win]
+    - ninja   # [win]
   host:
-    - zlib
+    - zlib  # [unix]
 
 test:
   commands:
-    - h264enc -h                                    # [not win]
-    - test -f $PREFIX/bin/h264dec                   # [not win]
-    - test -f $PREFIX/lib/libopenh264.dylib         # [osx]
-    - test -f $PREFIX/lib/libopenh264.so            # [linux]
+    - h264enc -h
+    - h264dec | grep welsdec.cfg       # [unix]
+    - h264dec | findstr welsdec.cfg    # [win]
+    - test -f $PREFIX/lib/libopenh264${SHLIB_EXT}                         # [unix]
+    - if not exist %PREFIX%\\Library\\bin\\openh264-6.dll exit 1          # [win]
+    - if not exist %PREFIX%\\Library\\lib\\openh264.lib exit 1            # [win]
+    - if not exist %PREFIX%\\Library\\lib\\pkgconfig\\openh264.pc exit 1  # [win]
 
 about:
   home: http://www.openh264.org/
