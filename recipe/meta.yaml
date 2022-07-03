@@ -12,6 +12,7 @@ source:
 
 build:
   number: 1
+  skip: true  # [not win]
   run_exports:
     # new so names and compatibility changes on minor version
     # https://abi-laboratory.pro/?view=timeline&l=openh264
