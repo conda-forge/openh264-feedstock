@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -x
+set -xe
 
 if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
   if [[ "$ARCH" == "64" ]]; then
@@ -9,7 +9,12 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
   sed -i.bak "s/ARCH=.*/ARCH=$ARCH/g" Makefile
 fi
 
-make PREFIX=$PREFIX -j${CPU_COUNT}
+make \
+  CXX=${CXX} \
+  CC=${CC} \
+  AR=${AR} \
+  PREFIX=$PREFIX \
+  -j${CPU_COUNT}
 make PREFIX=$PREFIX install
 
 mkdir -p -m755 -v "$PREFIX"/bin
