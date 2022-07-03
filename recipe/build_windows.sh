@@ -20,3 +20,5 @@ rm ${CYGWIN_PREFIX}/Library/lib/openh264.dll.a
 mkdir -p -m755 -v "$PREFIX"/bin
 install -m755 -v h264dec "${CYGWIN_PREFIX}/Library/bin/h264dec"
 install -m755 -v h264enc "${CYGWIN_PREFIX}/Library/bin/h264enc"
+# Manually replace cygwin_prefix with prefix in the pkgconfig file???
+sed -i "s,${CYGWIN_PREFIX},${PREFIX}," "${CYGWIN_PREFIX}/Library/lib/pkgconfig/openh264.pc
