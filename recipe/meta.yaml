@@ -26,8 +26,6 @@ requirements:
     - make    # [unix]
     - meson   # [win]
     - ninja   # [win]
-  host:
-    - zlib  # [unix]
 
 test:
   commands:
