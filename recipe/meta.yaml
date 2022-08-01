@@ -1,5 +1,5 @@
 {% set name = "openh264" %}
-{% set version = "2.2.0" %}
+{% set version = "2.3.0" %}
 
 package:
   name: {{ name }}
@@ -8,10 +8,10 @@ package:
 source:
   fn: {{ name }}-v{{ version }}.tar.gz
   url: https://github.com/cisco/openh264/archive/v{{ version }}.tar.gz
-  sha256: e4e5c8ba48e64ba6ce61e8b6e2b76b2d870c74c270147649082feabb40f25905
+  sha256: 99b0695272bee73a3b3a5fcb1afef462c11a142d1dc35a2c61fef5a4b7d60bc0
 
 build:
-  number: 2
+  number: 0
   run_exports:
     # new so names and compatibility changes on minor version
     # https://abi-laboratory.pro/?view=timeline&l=openh264
