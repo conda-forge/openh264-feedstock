@@ -14,8 +14,10 @@ build:
   number: 0
   run_exports:
     # new so names and compatibility changes on minor version
+    # But then... in 2.3.1 they broke that trend. so now
+    # we have to pin to patch versions too
     # https://abi-laboratory.pro/?view=timeline&l=openh264
-    - {{ pin_subpackage('openh264', max_pin='x.x') }}
+    - {{ pin_subpackage('openh264', max_pin='x.x.x') }}
 
 requirements:
   build:
