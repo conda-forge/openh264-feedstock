@@ -11,11 +11,12 @@ source:
   sha256: 453afa66dacb560bc5fd0468aabee90c483741571bca820a39a1c07f0362dc32
 
 build:
-  number: 0
+  number: 2
   run_exports:
     # new so names and compatibility changes on minor version
+    # But then things changed in 2.3.1
     # https://abi-laboratory.pro/?view=timeline&l=openh264
-    - {{ pin_subpackage('openh264', max_pin='x.x') }}
+    - {{ pin_subpackage('openh264', max_pin='x.x.x') }}
 
 requirements:
   build:
