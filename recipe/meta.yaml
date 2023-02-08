@@ -6,12 +6,14 @@ package:
   version: {{ version }}
 
 source:
-  fn: {{ name }}-v{{ version }}.tar.gz
   url: https://github.com/cisco/openh264/archive/v{{ version }}.tar.gz
   sha256: 453afa66dacb560bc5fd0468aabee90c483741571bca820a39a1c07f0362dc32
+  patches:
+    # https://github.com/cisco/openh264/pull/3618
+    - 0001-Avoid-providing-a-warning-if-the-requested-number-of.patch
 
 build:
-  number: 1
+  number: 2
   run_exports:
     # new so names and compatibility changes on minor version
     # But then things changed in 2.3.1
