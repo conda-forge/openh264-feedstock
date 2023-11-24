@@ -1,5 +1,5 @@
 {% set name = "openh264" %}
-{% set version = "2.3.1" %}
+{% set version = "2.4.0" %}
 
 package:
   name: {{ name }}
@@ -7,13 +7,13 @@ package:
 
 source:
   url: https://github.com/cisco/openh264/archive/v{{ version }}.tar.gz
-  sha256: 453afa66dacb560bc5fd0468aabee90c483741571bca820a39a1c07f0362dc32
+  sha256: a44d1ccc348a790f9a272bba2d1c2eb9a9bbd0302e4e9b655d709e1c32f92691
   patches:
     # https://github.com/cisco/openh264/pull/3618
     - 0001-Avoid-providing-a-warning-if-the-requested-number-of.patch
 
 build:
-  number: 2
+  number: 0
   run_exports:
     # new so names and compatibility changes on minor version
     # But then things changed in 2.3.1
