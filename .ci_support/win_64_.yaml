@@ -1,10 +1,14 @@
 c_compiler:
 - vs2019
+c_stdlib:
+- vs
 channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
 cxx_compiler:
 - vs2019
+openh264:
+- 2.4.1
 target_platform:
 - win-64
