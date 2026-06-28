@@ -7,9 +7,12 @@ package:
 source:
   url: https://github.com/cisco/openh264/archive/v{{ version }}.tar.gz
   sha256: 558544ad358283a7ab2930d69a9ceddf913f4a51ee9bf1bfb9e377322af81a69
+  patches:
+    # https://github.com/cisco/openh264/pull/3956
+    - 0001-allocate-enough-memory-for-all-slices.patch
 
 build:
-  number: 0
+  number: 1
   run_exports:
     # new so names and compatibility changes on minor version
     # But then things changed in 2.3.1
