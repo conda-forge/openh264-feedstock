@@ -11,13 +11,18 @@
 :: gas-preprocessor is not packaged on conda-forge. Instead we build with
 :: clang-cl, which assembles the NEON .S files directly (openh264 takes the
 :: `cpp_sources += asm_sources` path when the compiler id is clang-cl).
+::
+:: The --target lives in the compiler command itself (not in a [built-in
+:: options] c_args entry), so meson sees the arm64 target during compiler
+:: detection and stamps /MACHINE:ARM64 on the static linker (lib.exe). If
+:: --target were only in c_args, detection would see clang-cl's default arch
+:: and lib.exe would fail with LNK1112 (module type ARM64 conflicts with x64).
+::
+:: NOTE: keep comments OUT of the parenthesized if-block below -- cmd parses the
+:: whole block regardless of the condition, and a stray ")" in a "::" comment
+:: (or the comment itself) breaks parsing for every platform, not just arm64.
 if "%CONDA_BUILD_CROSS_COMPILATION%" == "1" (
   echo Cross compiling for %target_platform%; writing meson cross file
-  :: The --target lives in the compiler command itself (not in [built-in
-  :: options] c_args), so meson sees the arm64 target during compiler detection
-  :: and stamps /MACHINE:ARM64 on the static linker (lib.exe). If --target were
-  :: only in c_args, detection would see clang-cl's default (x64) and lib.exe
-  :: would fail with LNK1112 (module type ARM64 conflicts with target x64).
   echo [binaries]> "%SRC_DIR%\conda_meson_cross_file.txt"
   echo c = ['clang-cl', '--target=arm64-pc-windows-msvc']>> "%SRC_DIR%\conda_meson_cross_file.txt"
   echo cpp = ['clang-cl', '--target=arm64-pc-windows-msvc']>> "%SRC_DIR%\conda_meson_cross_file.txt"
