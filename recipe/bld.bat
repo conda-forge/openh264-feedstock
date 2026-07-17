@@ -14,9 +14,16 @@
 ::
 :: The --target lives in the compiler command itself (not in a [built-in
 :: options] c_args entry), so meson sees the arm64 target during compiler
-:: detection and stamps /MACHINE:ARM64 on the static linker (lib.exe). If
+:: detection and stamps the right /MACHINE on the static linker (lib.exe). If
 :: --target were only in c_args, detection would see clang-cl's default arch
 :: and lib.exe would fail with LNK1112 (module type ARM64 conflicts with x64).
+::
+:: Use the "aarch64" spelling of the triple, NOT "arm64": meson canonicalizes
+:: the compiler target by testing 'aarch64' in target before 'arm' in target
+:: (mesonbuild/compilers/mixins/visualstudio.py). "arm64" contains "arm" but not
+:: "aarch64", so meson would pick 32-bit /MACHINE:arm and lib.exe would fail with
+:: LNK1112 (module type ARM64 conflicts with target ARM). clang treats the two
+:: triples identically.
 ::
 :: NOTE: keep comments OUT of the parenthesized if-block below -- cmd parses the
 :: whole block regardless of the condition, and a stray ")" in a "::" comment
@@ -24,8 +31,8 @@
 if "%CONDA_BUILD_CROSS_COMPILATION%" == "1" (
   echo Cross compiling for %target_platform%; writing meson cross file
   echo [binaries]> "%SRC_DIR%\conda_meson_cross_file.txt"
-  echo c = ['clang-cl', '--target=arm64-pc-windows-msvc']>> "%SRC_DIR%\conda_meson_cross_file.txt"
-  echo cpp = ['clang-cl', '--target=arm64-pc-windows-msvc']>> "%SRC_DIR%\conda_meson_cross_file.txt"
+  echo c = ['clang-cl', '--target=aarch64-pc-windows-msvc']>> "%SRC_DIR%\conda_meson_cross_file.txt"
+  echo cpp = ['clang-cl', '--target=aarch64-pc-windows-msvc']>> "%SRC_DIR%\conda_meson_cross_file.txt"
   echo [host_machine]>> "%SRC_DIR%\conda_meson_cross_file.txt"
   echo system = 'windows'>> "%SRC_DIR%\conda_meson_cross_file.txt"
   echo cpu_family = 'aarch64'>> "%SRC_DIR%\conda_meson_cross_file.txt"
