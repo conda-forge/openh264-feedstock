@@ -29,6 +29,10 @@ requirements:
     - make    # [unix]
     - meson   # [win]
     - ninja   # [win]
+    # openh264's meson build assembles the arm64 NEON .S sources directly with
+    # clang-cl (the MSVC path would need gas-preprocessor + armasm64, which are
+    # not packaged on conda-forge). See recipe/bld.bat.
+    - clang   # [win and arm64]
 
 test:
   commands:
