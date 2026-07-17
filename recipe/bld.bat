@@ -13,14 +13,14 @@
 :: `cpp_sources += asm_sources` path when the compiler id is clang-cl).
 if "%CONDA_BUILD_CROSS_COMPILATION%" == "1" (
   echo Cross compiling for %target_platform%; writing meson cross file
+  :: The --target lives in the compiler command itself (not in [built-in
+  :: options] c_args), so meson sees the arm64 target during compiler detection
+  :: and stamps /MACHINE:ARM64 on the static linker (lib.exe). If --target were
+  :: only in c_args, detection would see clang-cl's default (x64) and lib.exe
+  :: would fail with LNK1112 (module type ARM64 conflicts with target x64).
   echo [binaries]> "%SRC_DIR%\conda_meson_cross_file.txt"
-  echo c = 'clang-cl'>> "%SRC_DIR%\conda_meson_cross_file.txt"
-  echo cpp = 'clang-cl'>> "%SRC_DIR%\conda_meson_cross_file.txt"
-  echo [built-in options]>> "%SRC_DIR%\conda_meson_cross_file.txt"
-  echo c_args = ['--target=arm64-pc-windows-msvc']>> "%SRC_DIR%\conda_meson_cross_file.txt"
-  echo cpp_args = ['--target=arm64-pc-windows-msvc']>> "%SRC_DIR%\conda_meson_cross_file.txt"
-  echo c_link_args = ['--target=arm64-pc-windows-msvc']>> "%SRC_DIR%\conda_meson_cross_file.txt"
-  echo cpp_link_args = ['--target=arm64-pc-windows-msvc']>> "%SRC_DIR%\conda_meson_cross_file.txt"
+  echo c = ['clang-cl', '--target=arm64-pc-windows-msvc']>> "%SRC_DIR%\conda_meson_cross_file.txt"
+  echo cpp = ['clang-cl', '--target=arm64-pc-windows-msvc']>> "%SRC_DIR%\conda_meson_cross_file.txt"
   echo [host_machine]>> "%SRC_DIR%\conda_meson_cross_file.txt"
   echo system = 'windows'>> "%SRC_DIR%\conda_meson_cross_file.txt"
   echo cpu_family = 'aarch64'>> "%SRC_DIR%\conda_meson_cross_file.txt"
